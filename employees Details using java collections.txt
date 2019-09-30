@@ -1,0 +1,134 @@
+import java.util.*;
+class Employee_det{
+	String ename;
+	int eid;
+	int age;
+	String dept;
+	int sal;
+    Employee_det(String n,int i,int a,String d,int s)
+    {
+    	ename=n;
+    	eid=i;
+    	age=a;
+    	dept=d;
+    	sal=s;
+    }
+ 
+	public String getname()
+    {
+    	return ename;
+    }
+    public int getid()
+    {
+    	return eid;
+    }
+    public int getage()
+    {
+    	return age;
+    }
+    public String getdept()
+    { 
+    	return dept.toLowerCase();
+    }
+
+	public int getsal()
+    {
+    	return sal;
+    }
+}
+class Agecompare implements Comparator<Employee_det>
+{
+    public int compare(Employee_det e1,Employee_det e2)
+    {
+
+    	return e1.getage() - e2.getage();
+    }
+}
+class Deptcompare implements Comparator<Employee_det>
+{
+    public int compare(Employee_det e1,Employee_det e2)
+    {
+    	return e1.getdept().compareTo(e2.getdept()); 
+    }
+}
+class Ass02collection02
+{
+	public static void main(String args[])
+	{  
+		ArrayList<Employee_det> list = new ArrayList<Employee_det>();
+	
+		list.add(new Employee_det("abcd",1, 20,"sales   ",10000));
+		list.add(new Employee_det("jkln",2, 23,"admin   ",25000));
+		list.add(new Employee_det("xyza",3, 18,"tech    ",20000));
+		list.add(new Employee_det("pqrs",4, 21,"sales   ",9000));
+		list.add(new Employee_det("lmno",5, 17,"admin   ",28000));
+		list.add(new Employee_det("qwes",6, 16,"tech    ",8000));
+		list.add(new Employee_det("zxcw",7, 22,"sales   ",17000));
+		list.add(new Employee_det("uiop",8, 19,"tech    ",18000));
+		list.add(new Employee_det("uiop",9, 19,"batch   ",18000));
+		list.add(new Employee_det("yhn",10, 13,"batch  ",19000));
+		list.add(new Employee_det("uiop",8, 19,"marketer",18000));
+		list.add(new Employee_det("uiop",8, 15,"Marketer",18000));
+		list.add(new Employee_det("zxcw",7, 20,"sales   ",17000));
+		
+		
+		Deptcompare deptcomp = new Deptcompare();
+		Agecompare agecomp = new Agecompare();
+		System.out.println("Original:- ");
+		for(Employee_det emp:list)
+		{
+		System.out.println(emp.getname()+" "+emp.getage()+" "+emp.getdept()+" "+emp.getsal());
+		}
+		
+		
+		ArrayList<Employee_det> temp=new ArrayList<Employee_det>();
+		temp.addAll(list);
+        ArrayList<Employee_det> Original= new ArrayList<Employee_det>();
+        
+          
+      Collections.sort(temp,deptcomp);
+       for(Employee_det sh: temp) {
+      	if(sh.getsal()>10000) {
+      		Original.add(sh);
+      	}
+      }
+      
+      ArrayList<Employee_det> Original2= new ArrayList<Employee_det>();
+      ArrayList<Employee_det> Original4= new ArrayList<Employee_det>();
+      ArrayList<Employee_det> Original5= new ArrayList<Employee_det>();
+      
+      
+     for(Employee_det a2: Original) {
+    	  for(Employee_det a3 :Original) {
+    		  
+    		 Collections.sort(Original2,agecomp);
+    		
+    		 if(a2.dept.equalsIgnoreCase(a3.dept)) {
+     			Original2.add(a3);
+     		} 
+    	 }
+    	 Original4.addAll(Original2);
+ 		 Original2.clear();
+     }
+     
+       for(Employee_det t1: Original4)  {
+    	   if(!Original5.contains(t1)) {
+    		   Original5.add(t1);
+    	   }
+       }
+
+        /* System.out.println("Original4 after department wise sorting:-");
+      	for(Employee_det s1:Original4) {
+      		 System.out.println(s1.getname()+" "+s1.getid()+" "+s1.getage()+" "+s1.getdept()+" "+s1.getsal());
+      	}*/
+      	
+      	 System.out.println("Original data after department wise sorting:-");
+      	 System.out.println("Name "+"  "+"ID"+"  "+"Age"+"  "+" Dept "+ "  "+" Sal ");
+      	 System.out.println("-----------------------------");
+       	for(Employee_det s1:Original5) {
+       		 System.out.println(s1.getname()+"   "+s1.getid()+"    "+s1.getage()+"  "+s1.getdept()+"   "+s1.getsal());
+       	}
+	}
+ }
+	
+
